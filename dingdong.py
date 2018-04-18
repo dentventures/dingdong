@@ -9,12 +9,16 @@ from email.mime.text import MIMEText
 from twisted.internet import reactor
 
 
-URL = os.environ.get('SLACK_DINGDONG', '')
+URL = os.environ.get('SLACK_DINGDONG', None)
 INTERVAL = 60
 FILEPATH = "domains.txt"
 
 
 def slack(*msg):
+    if not URL:
+        print 'no slack url set in $SLACK_DINGDONG'
+        return 
+        
     message_data = json.dumps(dict(text=''.join(str(msg))))
     response = requests.post(str(URL),
                              headers=dict(content_type='application/json',),
@@ -52,7 +56,7 @@ def ding(interval_seconds=INTERVAL, domains_filepath=FILEPATH):
                 response = requests.get(endpoint)
                 print '\tDING DONG FAILED!', endpoint, response.status_code, response.text
 
-                slack(endpoint, ' <', response.status_code, '> is down: ```\n', response.text[:min(4000, len(response.text))], '```')
+                slack(endpoint, ' <', response.status_code, '> is down: ```\n', response.text[:min(1000, len(response.text))], '```')
             else:
                 print '\tDomain is up:', endpoint
 
