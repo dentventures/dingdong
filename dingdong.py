@@ -10,6 +10,7 @@ from twisted.internet import reactor
 
 
 URL = os.environ.get('SLACK_DINGDONG', None)
+# TODO(Brett): SHOULD probably just use environment variables for these as well as being able to be set via the script
 INTERVAL = 60
 FILEPATH = "domains.txt"
 
@@ -18,7 +19,7 @@ def slack(*msg):
     if not URL:
         print 'no slack url set in $SLACK_DINGDONG'
         return 
-        
+
     message_data = json.dumps(dict(text=''.join(str(msg))))
     response = requests.post(str(URL),
                              headers=dict(content_type='application/json',),
