@@ -18,6 +18,21 @@ python dingdong.py
 
 ```
 
+### help
+
+Output from --help
+
+```
+usage: dingdong.py [-h] [--interval INTERVAL] [--domains DOMAINS]
+
+start ding dong process against domains list
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --interval INTERVAL  interval to check domains list in seconds
+  --domains DOMAINS    filepath to the list of domains to check
+```
+
 ### notes
 
 * Everything here is subject to change and an ongoing project. 
