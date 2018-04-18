@@ -51,10 +51,9 @@ def ding(interval_seconds=INTERVAL, domains_filepath=FILEPATH):
         for endpoint in file.readlines():
 
             endpoint  = endpoint.strip()
-            response = requests.head(endpoint)
+            response = requests.get(endpoint)
 
             if response.status_code < 200 or response.status_code > 400:
-                response = requests.get(endpoint)
                 print '\tDING DONG FAILED!', endpoint, response.status_code, response.text
 
                 slack(endpoint, ' <', response.status_code, '> is down: ```\n', response.text[:min(1000, len(response.text))], '```')
