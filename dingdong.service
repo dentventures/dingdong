@@ -1,0 +1,13 @@
+[Unit]
+Description=Ding Dong Service
+After=multi-user.target
+
+[Service]
+Type=idle
+Restart=always
+User=ubuntu
+Environment=/etc/environment
+ExecStart=/home/ubuntu/dingdong/venv/bin/python /home/ubuntu/dingdong/dingdong.py --interval 300 --domains="/home/ubuntu/dingdong/domains.txt"
+
+[Install]
+WantedBy=multi-user.target
