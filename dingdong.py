@@ -52,13 +52,14 @@ def ding(interval_seconds=INTERVAL, domains_filepath=FILEPATH):
 
             endpoint  = endpoint.strip()
             response = requests.get(endpoint)
+            
 
             if response.status_code < 200 or response.status_code > 400:
                 print '\tDING DONG FAILED!', endpoint, response.status_code, response.text
 
                 slack(endpoint, ' <', response.status_code, '> is down: ```\n', response.text[:min(1000, len(response.text))], '```')
             else:
-                print '\tDomain is up:', endpoint
+                print '\tDomain is up: <', response.status_code, '>', endpoint
 
 
     reactor.callLater(interval_seconds,
